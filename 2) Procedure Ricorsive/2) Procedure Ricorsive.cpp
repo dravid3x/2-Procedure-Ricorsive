@@ -10,8 +10,9 @@
 #include <windows.h>
 #pragma execution_character_set( "utf-8" )
 
-void ricerca_in_array(), cambiaDim(), scelta_riempimento(), riempimento_manuale(), riempimento_casuale(), scelta_min_max();
+void ricerca_in_array(), cambiaDim(), scelta_riempimento(), riempimento_manuale(), riempimento_casuale(), scelta_min_max(), conta_elementi_positivi();
 bool cerca_in_array(int arrNumeri[], int nRicercato, int pos, int dimLogica);
+int conta_positivi(int* arrNumeri, int pos, int dimLogica, int nPositivi);
 
 const int dim = 1000000;
 int logic_dim = dim, minVal = 0, maxVal = 500;
@@ -24,7 +25,8 @@ int main()
 	bool finito = false;
 	while (!finito) {
 		cout << "Procedure ricorsive\n";
-		cout << "1) Ricerca intero in array\n";
+		cout << "1) Ricerca intero\n";
+		cout << "2) Conta elementi positivi\n";
 		cout << "3) Riempi array di numeri\n";
 		cout << "-1) Exit\n\n";
 		cout << ">> ";
@@ -35,6 +37,10 @@ int main()
 		{
 		case 1:
 			ricerca_in_array();
+			system("PAUSE");
+			break;
+		case 2:
+			conta_elementi_positivi();
 			system("PAUSE");
 			break;
 		case 3:
@@ -51,6 +57,20 @@ int main()
 	return 0;
 }
 
+void conta_elementi_positivi() {
+	cout << "Il numero di elementi positivi presenti nell'array è: " << conta_positivi(numeri, 0, logic_dim, 0) << " su " << logic_dim << " elementi\n";
+}
+
+int conta_positivi(int* arrNumeri, int pos, int dimLogica, int nPositivi) {
+	//Funzione ricorsiva che controlla se il numero attuale è positivo o meno, incrementa la posizione e richiama se stessa
+	if (pos >= dimLogica) return nPositivi;
+	else {
+		if (arrNumeri[pos] > 0) nPositivi++;
+		pos++;
+		conta_positivi(arrNumeri, pos, dimLogica, nPositivi);
+	}
+}
+
 void ricerca_in_array() {
 	cout << "Inserire il numero da ricercare\n\n>> ";
 	int ricercato;
@@ -59,7 +79,8 @@ void ricerca_in_array() {
 	cout << ((cerca_in_array(numeri, ricercato, 0, logic_dim)) ? "Il numero inserito è presente nell'array di numeri" : "Il numero inserito non è presente nell'array di numeri") << "\n";
 }
 
-bool cerca_in_array(int *arrNumeri, int nRicercato, int pos, int dimLogica) {
+bool cerca_in_array(int* arrNumeri, int nRicercato, int pos, int dimLogica) {
+	//Funzione ricorsiva che controlla se il numero attuale corrisponde al numero ricercato, se si interrompe altrimenti richiama se stessa
 	if (pos >= dimLogica) return false;
 	else {
 		if (nRicercato == arrNumeri[pos]) return true;
