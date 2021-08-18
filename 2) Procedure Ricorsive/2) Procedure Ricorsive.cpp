@@ -76,6 +76,7 @@ int main()
 }
 
 void conta_elementi_positivi() {
+	//Funzione che stampa il numero di elementi positivi presenti nell'array
 	cout << "Il numero di elementi positivi presenti nell'array è: " << conta_positivi(numeri, 0, logic_dim, 0) << " su " << logic_dim << " elementi\n";
 }
 
@@ -90,6 +91,7 @@ int conta_positivi(int* arrNumeri, int pos, int dimLogica, int nPositivi) {
 }
 
 void ricerca_in_array() {
+	//Funzione che stampa a schermo una frase dipendente dal aver trovato o meno il numero richiesto all'interno dell'array
 	cout << "Inserire il numero da ricercare\n\n>> ";
 	int ricercato;
 	cin >> ricercato;
@@ -124,6 +126,7 @@ void cambiaDim() {
 }
 
 void scelta_riempimento() {
+	//Funzione per la scelta del tipo di riempimento da applicare
 	cout << "Desidera riempire l'array\n1) Manualmente\n2) Casualmente\n";
 	cout << ">> \n";
 	int scelta;
@@ -134,6 +137,7 @@ void scelta_riempimento() {
 }
 
 void scelta_riempimento_lista() {
+	//Funzione per la scelta del tipo di riempimento da applicare
 	cout << "Desidera riempire la lista\n1) Manualmente\n2) Casualmente\n";
 	cout << ">> \n";
 	int scelta;
@@ -174,6 +178,7 @@ void riempimento_casuale() {
 }
 
 void scelta_min_max() {
+	//Funzione per la scelta del valore minimo e massimo (che servirà al riempimento casuale)
 	bool valido = false;
 	while (!valido) {
 		cout << "Inserire il valore minimo generabile >> ";
@@ -209,6 +214,7 @@ void scelta_min_max() {
 }
 
 void riempimento_casuale_lista() {
+	//Funzione di riempimento della lista casualmente
 	cambiaDim();
 	scelta_min_max();
 	for (int i = 0; i < logic_dim; i++) lista.push_front((rand() % (maxVal - minVal)) + minVal);
@@ -238,12 +244,19 @@ void riempimento_manuale_lista() {
 }
 
 void rimuovi_doppioni_lista() {
+	//Funzione che richiama la funzione ricorsiva di rimozione dei doppioni dalla lista
 	i = lista.begin();
 	rimuovi_doppioni(*i, 0);
 	cout << "Doppioni rimossi correttamente";
 }
 
 void rimuovi_doppioni(int nRicercato, int offSet) {
+	/*
+	* Funzione ricorsiva che rimuove i doppioni dalla lista, riceve un numero ricercato ed un offset, se il numero viene trovato la prima volta viene ignorato, quando lo si trova una seconda volta
+	* esso viene eliminato e la funzione viene richiamata con gli stessi parametri.
+	* Se il valore non viene trovato una seconda volta prima della fine della lista il ciclo termina, viene incrementato l'offset (contatore che tiene traccia della posizione nella lista),
+	* si controlla se esso è oltre alla dimensione della lista e se non la supera si passa alla posizione successiva, incrementanto l'iteratore i di una posizione e richiamando la funzione
+	*/
 	bool firstFound = false;
 	for (i = lista.begin(); i != lista.end(); i++) {
 		if (*i == nRicercato) {
@@ -268,6 +281,7 @@ void rimuovi_doppioni(int nRicercato, int offSet) {
 }
 
 void stampaLista() {
+	//Funzione "foreach" per la stampa di tutti lgi elementi presenti nella lista. Numero corrisponde all'elemento, lista alla lista dove ciclare
 	for (int numero : lista) {
 		cout << numero << "\n";
 	}
